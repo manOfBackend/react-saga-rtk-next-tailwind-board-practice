@@ -11,14 +11,13 @@ module.exports = merge(baseConfig, {
   devtool: 'eval-source-map',
   devServer: {
     hot: true,
-    port: '5050',
+    port: 'auto',
     host: '127.0.0.1',
     historyApiFallback: true,
+    open: true,
   },
   module: {
-    rules: [
-    
-    ],
+    rules: [],
   },
   plugins: [
     new HtmlWebPackPlugin({
@@ -26,7 +25,7 @@ module.exports = merge(baseConfig, {
       minify: {
         removeComments: true,
       },
-    //   favicon: path.resolve(TEMPLATE_PATH, 'favicon.ico'),
+      //   favicon: path.resolve(TEMPLATE_PATH, 'favicon.ico'),
     }),
   ],
 });

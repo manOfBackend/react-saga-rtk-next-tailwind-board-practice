@@ -1,8 +1,8 @@
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 const PROJECT_ROOT = path.resolve(__dirname, '../..');
 const DIST_PATH = path.resolve(PROJECT_ROOT, 'dist');
 const SRC_PATH = path.resolve(PROJECT_ROOT, 'src');
-
 module.exports = {
   entry: path.resolve(SRC_PATH, 'index.tsx'),
   output: {
@@ -22,10 +22,6 @@ module.exports = {
           loader: 'babel-loader',
         },
       },
-      {
-        test: /\.(png|jpg|jpeg|svg|gif)$/,
-        type: 'asset/resource',
-      },
     ],
   },
   resolve: {
@@ -34,5 +30,9 @@ module.exports = {
       '@src': SRC_PATH,
     },
   },
-  plugins: [],
+  plugins: [
+    new Dotenv({
+      systemvars: true,
+    }),
+  ],
 };
