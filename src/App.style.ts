@@ -17,85 +17,64 @@ export const theme = {
     separatorColor: '#a4a4a45b',
     yellow: '#ffe812',
     white: '#ffffff',
+    blue0: '#f3f9ff',
+    blue1: '#e6f2ff',
+    blue2: '#c5e1ff',
+    blue3: '#92c7ff',
+    blue4: '#5facff',
+    blue5: '#1184ff',
+    blue6: '',
+    blue7: '',
+    blue8: '',
+  },
+
+  fontSize: {
+    xxSmall: '1.2rem',
+    xSmall: '1.4rem',
+    medium: '1.6rem',
+    large: '1.8rem',
+  },
+
+  fontWeight: {
+    thin: 100,
+    light: 300,
+    regular: 400,
+    medium: 500,
+    bold: 700,
+    black: 900,
   },
 };
 
 export const GlobalStyle = createGlobalStyle`
   ${normalize}
-
-  html,
-  body,
-  #root {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    font-size: 16px;
-    font-family: 'Noto Sans KR', sans-serif;
-  }
-
   body {
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    animation: fadeIn 1s forwards;
+    background: ${({ theme: any }) => theme.color.appBackgroundColor};
   }
-   
-  svg {
-    display: block;
-  }
-
-  button {
-    border: none;
-    background-color: transparent;
-    outline: none;
-    padding: 0px;
-    cursor: pointer;
-  }
-
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  input[type='number']::-webkit-outer-spin-button,
-  input[type='number']::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-  }
-
-  textarea {
-    resize: none;
-  }
-
-  a {
-    font-weight: bold;
-    font-size: 2rem;
-    display: block;
-    margin: 20px;
-    all: unset;
-    color: #3f464d;
+  @media only screen and (min-width: 1280px) {
+    body {
+      padding: 4.625rem 0.3125rem 0;
+      width: 1280px;
+      margin: 0 auto;
+      margin-bottom: 100px;
+    }
   }
   
-  a:link {
-    text-decoration: none;
+  @media only screen and (min-width: 768px) and (max-width: 1280px) {
+    body {
+      padding: 4.625rem 0.3125rem 0;
+      width: 768px;
+      margin: 0 auto;
+      margin-bottom: 50px;
+    }
   }
-  a:visited {
-    text-decoration: none;
-  }
-  a:active {
-    text-decoration: none;
-  }
-  a:hover {
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  a, button {
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  * {
-    box-sizing: border-box;
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 `;
