@@ -33,9 +33,10 @@
       "react/jsx-uses-vars": "error",
       "@typescript-eslint/explicit-module-boundary-types": "off",
       "simple-import-sort/imports": "error",
-      "simple-import-sort/exports": "error"
+      "simple-import-sort/exports": "error",
+      "react/display-name": "off"
     },
-    "ignorePatterns": ["config2", "*.config.js", "node_modules"],
+    "ignorePatterns": ["config", "*.config.js", "node_modules"],
     // 참고 : https://github.com/lydell/eslint-plugin-simple-import-sort/issues/31
     "overrides": [
       {
