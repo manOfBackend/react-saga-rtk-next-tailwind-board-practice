@@ -15,4 +15,4 @@ export function useInternalRouter() {
   }, [navigate]);
 }
 
-type RouterPath = '/board' | '/write';
+type RouterPath = '/board' | '/write' | '/detail' | '/comment-write';
