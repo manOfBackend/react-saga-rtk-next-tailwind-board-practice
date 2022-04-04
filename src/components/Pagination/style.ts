@@ -10,10 +10,6 @@ const StyledPagination = styled.div`
     &.clicked {
       color: ${({ theme }) => theme.color.blue5};
     }
-
-    &:hover {
-      color: #333;
-    }
   }
 `;
 

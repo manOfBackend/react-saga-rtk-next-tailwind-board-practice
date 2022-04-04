@@ -28,7 +28,7 @@ const Pagination: React.FC<PaginationProps> = ({
     <StyledPagination className={cn(`_PAGINATION_`, className)}>
       {[...Array(totalPage)].map((_, index) => (
         <Text
-          className={cn(`pagination-number`, index + 1 === currentPage ? 'clicked' : '')}
+          className={cn(`pagination-number`, index == currentPage - 1 ? 'clicked' : '')}
           fontColor="gray"
           fontSize="medium"
           fontWeight="regular"
