@@ -1,14 +1,10 @@
 import { REQUEST_URL } from '@src/constants';
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 
-import { GetPosts } from './types/request';
+import { AddComment, AddPost, GetComment, GetPost, GetPosts } from './types/request';
 import { PostsResponse } from './types/response';
 
 axios.defaults.baseURL = `${process.env.API_ENDPOINT}`;
-
-const STATUS_CODE = {
-  INTERNAL_SERVER_ERROR: 500,
-};
 
 const isAxiosError = (error: any): error is AxiosError => {
   return error.isAxiosError;
@@ -31,7 +27,19 @@ const API = {
     return request({ method: 'POST', url: REQUEST_URL.LOGIN, data });
   },
   posts: (data: GetPosts): Promise<PostsResponse> => {
-    return request({ method: 'GET', url: REQUEST_URL.POSTS, params: { page: data.page } });
+    return request({ method: 'GET', url: REQUEST_URL.POSTS, params: { _page: data.page } });
+  },
+  post: (data: GetPost): Promise<PostsResponse> => {
+    return request({ method: 'GET', url: `${REQUEST_URL.POSTS}/${data.id}` });
+  },
+  addPost: (data: AddPost) => {
+    return request({ method: 'POST', url: REQUEST_URL.POSTS, data });
+  },
+  addComment: (data: AddComment) => {
+    return request({ method: 'POST', url: REQUEST_URL.COMMENTS, data });
+  },
+  comments: (data: GetComment) => {
+    return request({ method: 'GET', url: REQUEST_URL.COMMENTS, params: { postId: data.postId } });
   },
 };
 export default API;

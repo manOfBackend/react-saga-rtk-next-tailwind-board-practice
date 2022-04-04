@@ -1,9 +1,3 @@
-export interface Response<T> {
-  status: number;
-  message: string;
-  data: T;
-}
-
 export interface Post {
   id: string;
   title: string;
@@ -11,7 +5,18 @@ export interface Post {
   content: string;
 }
 
+export interface Comment {
+  id: string;
+  postId: string;
+  writer: string;
+  content: string;
+}
+
 export interface PostsResponse {
   totalCount: number;
   posts: Post[];
+}
+
+export interface DetailResponse {
+  post: Post;
 }
