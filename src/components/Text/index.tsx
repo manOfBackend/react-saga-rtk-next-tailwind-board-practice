@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { FontSize } from '@src/utils';
+import { FontSize } from '@src/constants';
 import cn from 'classnames';
 
 import StyledText from './style';
