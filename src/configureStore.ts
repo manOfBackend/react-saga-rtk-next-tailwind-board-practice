@@ -27,7 +27,7 @@ const persistConfig: PersistConfig<any, any, any, any> = {
   storage: localforage,
   whitelist: ['posts', 'detail'],
 };
-const logger = (createLogger as any)();
+const logger = createLogger();
 const dev = process.env.NODE_ENV === 'development';
 
 let middleware = dev ? applyMiddleware(logger, sagaMiddleware) : applyMiddleware(sagaMiddleware);
