@@ -14,7 +14,8 @@ export function handlers() {
      *  content: string; // 내용
      * }
      */
-    rest.get('/api/posts', getPosts),
+    // rest.get('/api/posts', getPosts),
+    // rest.get('/api/post', getPostById),
   ];
 }
 
@@ -135,6 +136,18 @@ const getPosts: Parameters<typeof rest.get>[1] = (req, res, ctx) => {
         totalCount: 3,
         posts: _filteredPosts,
       },
+    })
+  );
+};
+const getPostById: Parameters<typeof rest.get>[1] = (req, res, ctx) => {
+  const id = Number(req.url.searchParams.get('id'));
+
+  return res(
+    ctx.status(200),
+    ctx.json({
+      status: 200,
+      message: '',
+      data: posts.find((post) => post.id === id),
     })
   );
 };
