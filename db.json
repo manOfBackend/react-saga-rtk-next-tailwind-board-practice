@@ -115,8 +115,8 @@
       "id": 19
     },
     {
-      "title": "",
-      "content": "",
+      "title": "qweeeqw",
+      "content": "eeqweasdasd",
       "writer": "aaa",
       "id": 20
     }
@@ -187,30 +187,6 @@
       "content": "aaaa",
       "writer": "hj",
       "id": 11
-    },
-    {
-      "postId": 2,
-      "content": "aaaaa",
-      "writer": "hj",
-      "id": 12
-    },
-    {
-      "postId": 2,
-      "content": "aaaaas",
-      "writer": "hj",
-      "id": 13
-    },
-    {
-      "postId": 2,
-      "content": "zzzzz",
-      "writer": "hj",
-      "id": 14
-    },
-    {
-      "postId": 2,
-      "content": "",
-      "writer": "hj",
-      "id": 15
     },
     {
       "postId": 2,
@@ -289,6 +265,18 @@
       "content": "방가방가ㅎㅎ",
       "writer": "hj",
       "id": 28
+    },
+    {
+      "postId": 1,
+      "content": "ddsdsds",
+      "writer": "hj",
+      "id": 29
+    },
+    {
+      "postId": 7,
+      "content": "dfdfsdf",
+      "writer": "hj",
+      "id": 30
     }
   ]
 }
