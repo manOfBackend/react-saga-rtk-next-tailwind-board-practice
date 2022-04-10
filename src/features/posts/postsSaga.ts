@@ -32,10 +32,10 @@ function* addPostsSaga({ payload }: { payload: AddPost }) {
   }
 }
 function* onAddPostWatcher() {
-  yield takeLatest(postsActions.addPost as any, addPostsSaga);
+  yield takeLatest(postsActions.addPost, addPostsSaga);
 }
 function* onGetPostsWatcher() {
-  yield takeLatest(postsActions.getPosts as any, getPostsSaga);
+  yield takeLatest(postsActions.getPosts, getPostsSaga);
 }
 
 export default [fork(onGetPostsWatcher), fork(onAddPostWatcher)];
