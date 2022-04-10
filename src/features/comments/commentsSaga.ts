@@ -17,7 +17,7 @@ function* getCommentsSaga({ payload }: { payload: GetComment }) {
   }
 }
 function* onGetCommentsWatcher() {
-  yield takeLatest(commentsActions.getComments as any, getCommentsSaga);
+  yield takeLatest(commentsActions.getComments, getCommentsSaga);
 }
 
 function* addCommentsSaga({ payload }: { payload: AddComment }) {
@@ -33,7 +33,7 @@ function* addCommentsSaga({ payload }: { payload: AddComment }) {
   }
 }
 function* onAddCommentsWatcher() {
-  yield takeLatest(commentsActions.addComment as any, addCommentsSaga);
+  yield takeLatest(commentsActions.addComment, addCommentsSaga);
 }
 
 export default [fork(onGetCommentsWatcher), fork(onAddCommentsWatcher)];

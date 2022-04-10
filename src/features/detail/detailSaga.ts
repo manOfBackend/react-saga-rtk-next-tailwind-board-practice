@@ -21,7 +21,7 @@ function* getDetailSaga({ payload }: { payload: GetPost }) {
   }
 }
 function* onGetDetailWatcher() {
-  yield takeLatest(detailActions.getDetail as any, getDetailSaga);
+  yield takeLatest(detailActions.getDetail, getDetailSaga);
 }
 
 export default [fork(onGetDetailWatcher)];
