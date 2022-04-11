@@ -1,18 +1,22 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { FixedBottomButton, Text } from '@src/components';
 import Header from '@src/components/Header';
 import List from '@src/components/List';
 import Stack from '@src/components/Stack';
-import { RootState } from '@src/configureStore';
+import useStores from '@src/mobx-stores/useStores';
+import { observer } from 'mobx-react';
 
 import { useInternalRouter } from '../Routing';
 
 const Detail = () => {
   const router = useInternalRouter();
-  const { detail } = useSelector((state: RootState) => state.detail);
-  const { comments } = useSelector((state: RootState) => state.comments);
+  // const { detail } = useSelector((state: RootState) => state.detail);
+  // const { comments } = useSelector((state: RootState) => state.comments);
 
+  const { detailStore, commentStore } = useStores();
+
+  const { detail } = detailStore;
+  const { comments } = commentStore;
   return (
     <>
       <Header onBackClick={() => router.push('/board')} />
@@ -41,4 +45,4 @@ const Detail = () => {
   );
 };
 
-export default Detail;
+export default observer(Detail);

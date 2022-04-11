@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { FixedBottomButton, Pagination, Table, Text } from '@src/components';
 import Stack from '@src/components/Stack';
-import { RootState } from '@src/configureStore';
-import { detailActions } from '@src/features/detail/detailSlice';
-import { postsActions } from '@src/features/posts/postsSlice';
+import useStores from '@src/mobx-stores/useStores';
+import { observer } from 'mobx-react';
 import { css } from 'styled-components';
 
 import { useInternalRouter } from '../Routing';
@@ -13,12 +11,12 @@ const FindaBoard = () => {
   const router = useInternalRouter();
   const [page, setPage] = useState(1);
 
-  const dispatch = useDispatch();
-  const { posts } = useSelector((state: RootState) => state.posts);
+  const { postStore, detailStore } = useStores();
 
+  const { posts } = postStore;
   useEffect(() => {
-    dispatch(postsActions.getPosts({ page }));
-  }, [page, dispatch]);
+    postStore.getPost({ page });
+  }, [page]);
 
   return (
     <div className="finda-board">
@@ -53,7 +51,8 @@ const FindaBoard = () => {
                 <tr
                   key={post.id}
                   onClick={() => {
-                    dispatch(detailActions.getDetail({ id: post.id }));
+                    // dispatch(detailActions.getDetail({ id: post.id }));
+                    detailStore.getDetail({ id: post.id });
                     router.push(`/detail`);
                   }}
                 >
@@ -86,4 +85,4 @@ const FindaBoard = () => {
   );
 };
 
-export default FindaBoard;
+export default observer(FindaBoard);

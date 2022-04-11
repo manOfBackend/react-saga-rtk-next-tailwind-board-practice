@@ -1,27 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { FixedBottomButton, Text } from '@src/components';
 import Header from '@src/components/Header';
 import Stack from '@src/components/Stack';
-import { RootState } from '@src/configureStore';
-import { commentsActions } from '@src/features/comments/commentsSlice';
+import useStores from '@src/mobx-stores/useStores';
+import { reaction } from 'mobx';
+import { observer } from 'mobx-react';
 import { css } from 'styled-components';
 
 import { useInternalRouter } from '../Routing';
 
 const CommentWrite = () => {
   const router = useInternalRouter();
-  const dispatch = useDispatch();
   const [content, setContent] = useState<string>('');
-  const { addCommentSuccess } = useSelector((state: RootState) => state.comments);
-  const { postIdOnView } = useSelector((state: RootState) => state.detail);
+  // const { addCommentSuccess } = useSelector((state: RootState) => state.comments);
+  // const { postIdOnView } = useSelector((state: RootState) => state.detail);
 
-  useEffect(() => {
-    if (addCommentSuccess) {
-      router.push('/detail');
+  const { detailStore, commentStore } = useStores();
+  const { postIdOnView } = detailStore;
+  reaction(
+    () => commentStore.isAddCommentSuccess,
+    (success) => {
+      if (success) {
+        router.push('/detail');
+      }
     }
-  }, [addCommentSuccess]);
-
+  );
   return (
     <>
       <Header onBackClick={() => router.goBack()} />
@@ -39,9 +42,10 @@ const CommentWrite = () => {
       <FixedBottomButton
         onClick={() => {
           if (postIdOnView) {
-            dispatch(
-              commentsActions.addComment({ postId: postIdOnView, content: content, writer: 'hj' })
-            );
+            // dispatch(
+            // commentsActions.addComment({ postId: postIdOnView, content: content, writer: 'hj' })
+            // );
+            commentStore.addComment({ postId: postIdOnView, content: content, writer: 'hj' });
           }
         }}
       >
@@ -51,4 +55,4 @@ const CommentWrite = () => {
   );
 };
 
-export default CommentWrite;
+export default observer(CommentWrite);

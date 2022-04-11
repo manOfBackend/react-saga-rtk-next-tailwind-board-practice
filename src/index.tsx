@@ -1,23 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { PersistGate } from 'redux-persist/integration/react';
+import { Provider as MobxProvider } from 'mobx-react';
 
 import App from './App';
-import configureStore from './configureStore';
-import { serviceWorker } from './server/browser';
-serviceWorker.start({ onUnhandledRequest: 'bypass' });
-
-const { persistor, store } = configureStore();
+import mobxStore from './mobx-stores';
 
 ReactDOM.render(
-  <Provider store={store}>
-    <PersistGate loading={<span>loading...</span>} persistor={persistor}>
-      <Router>
-        <App />
-      </Router>
-    </PersistGate>
-  </Provider>,
+  <MobxProvider stores={mobxStore}>
+    <Router>
+      <App />
+    </Router>
+  </MobxProvider>,
   document.getElementById('root')
 );
