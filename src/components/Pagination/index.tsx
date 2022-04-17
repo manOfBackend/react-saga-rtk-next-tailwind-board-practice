@@ -19,13 +19,13 @@ const Pagination: React.FC<PaginationProps> = ({ className, pageSize, totalLengt
 
   const router = useRouter();
 
-  const { id } = router.query;
+  const { page } = router.query;
 
   return (
     <StyledPagination className={cn(`_PAGINATION_`, className)}>
       {[...Array(totalPage)].map((_, index) => (
         <Text
-          className={cn(`pagination-number`, index == Number(id) - 1 ? 'clicked' : '')}
+          className={cn(`pagination-number`, index == Number(page) - 1 ? 'clicked' : '')}
           fontColor="gray"
           fontSize="medium"
           fontWeight="regular"

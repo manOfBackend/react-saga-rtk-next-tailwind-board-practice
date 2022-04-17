@@ -1,22 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { FixedBottomButton, Pagination, Table, Text } from '@src/components';
 import Stack from '@src/components/Stack';
+import { SagaStore, wrapper } from '@src/configureStore';
 import { RootState } from '@src/features';
-import { detailActions } from '@src/features/detail/detailSlice';
 import { postsActions } from '@src/features/posts/postsSlice';
-import API from '@src/services/requests';
 import { Post } from '@src/services/types/response';
-import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
+import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import Router from 'next/router';
+import { END } from 'redux-saga';
 import { css } from 'styled-components';
-const FindaBoard = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(postsActions.getPosts({ page }));
-  // }, [page, dispatch]);
-
-  // const { posts } = useSelector((state: RootState) => state.posts);
+const FindaBoard = () => {
+  const { posts } = useSelector((state: RootState) => state.posts);
 
   return (
     <div className="finda-board">
@@ -51,9 +46,8 @@ const FindaBoard = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) =
                 <tr
                   key={post.id}
                   onClick={() => {
-                    dispatch(detailActions.getDetail({ id: post.id }));
-                    Router.push('/Detail');
-                    // router.push(`/detail`);
+                    // dispatch(detailActions.getDetail({ id: post.id }));
+                    Router.push(`/Detail?id=${post.id}`);
                   }}
                 >
                   <td>
@@ -89,16 +83,31 @@ export default FindaBoard;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: [{ params: { id: '1' } }, { params: { id: '2' } }],
+    paths: [{ params: { page: '1' } }, { params: { page: '2' } }],
     fallback: true,
   };
 };
 
-export const getStaticProps: GetStaticProps<{ posts: Post[] }> = async ({ params }: any) => {
-  const posts = await API.posts({ page: params.id });
+export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
+  (Store) =>
+    async ({ params }: GetStaticPropsContext<any>) => {
+      const { page } = params;
+      Store.dispatch(postsActions.getPosts({ page: page as number }));
+      Store.dispatch(END);
+      await (Store as SagaStore)?.sagaTask?.toPromise();
+      return {
+        props: {
+          data: null,
+        },
+      };
+    }
+);
 
-  return {
-    props: { posts },
-    revalidate: 1,
-  };
-};
+// async ({ params }: any) => {
+//   const posts = await API.posts({ page: params.id });
+
+//   return {
+//     props: { posts },
+//     revalidate: 1,
+//   };
+// };

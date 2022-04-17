@@ -1,11 +1,13 @@
 import React from 'react';
 import { GlobalStyle, theme } from '@src/App.style';
-import { wrapper } from '@src/configureStore';
+import { SagaStore, wrapper } from '@src/configureStore';
 import { GlobalPortal } from '@src/GlobalPortal';
 import { NextPage } from 'next';
-import { AppProps } from 'next/app';
+import App, { AppProps } from 'next/app';
+import { END } from 'redux-saga';
 import { ThemeProvider } from 'styled-components';
-const App: NextPage<AppProps> = ({ Component, pageProps }: AppProps) => {
+
+const MyApp: NextPage<AppProps> = ({ Component, pageProps }: AppProps) => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalPortal.Provider>
@@ -16,4 +18,4 @@ const App: NextPage<AppProps> = ({ Component, pageProps }: AppProps) => {
   );
 };
 
-export default wrapper.withRedux(App);
+export default wrapper.withRedux(MyApp);

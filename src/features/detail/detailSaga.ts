@@ -3,7 +3,6 @@ import { GetPost } from '@src/services/types/request';
 import { AxiosResponse } from 'axios';
 import { call, fork, put, takeLatest } from 'redux-saga/effects';
 
-import { commentsActions } from '../comments/commentsSlice';
 import { detailActions } from './detailSlice';
 
 function* getDetailSaga({ payload }: { payload: GetPost }) {
@@ -14,8 +13,6 @@ function* getDetailSaga({ payload }: { payload: GetPost }) {
       type: detailActions.getDetailSuccess,
       payload: response,
     });
-    // 댓글 목록 불러오기
-    yield put(commentsActions.getComments({ postId: payload.id }));
   } catch (error) {
     yield put({ type: detailActions.getDetailError, payload: error });
   }

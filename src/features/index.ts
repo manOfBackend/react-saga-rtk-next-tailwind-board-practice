@@ -29,18 +29,19 @@ const initialState: RootState = {
   },
 };
 const reducer = (state: RootState = initialState, action: { type: string; payload: any }) => {
-  if (action.type === HYDRATE) {
-    return {
-      ...state,
-      ...action.payload,
-    };
+  switch (action.type) {
+    case HYDRATE:
+      return {
+        ...state,
+        ...action.payload,
+      };
+    default:
+      return combineReducers({
+        posts: postsReducer,
+        detail: detailReducer,
+        comments: commentsReducer,
+      })(state, action);
   }
-  const combined = combineReducers({
-    posts: postsReducer,
-    detail: detailReducer,
-    comments: commentsReducer,
-  });
-  return combined(state, action);
 };
 
 export function* rootSaga() {

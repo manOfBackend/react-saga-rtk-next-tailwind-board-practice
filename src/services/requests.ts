@@ -2,7 +2,7 @@ import { REQUEST_URL } from '@src/constants';
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 
 import { AddComment, AddPost, GetComment, GetPost, GetPosts } from './types/request';
-import { Post, PostsResponse } from './types/response';
+import { Post } from './types/response';
 
 axios.defaults.baseURL = `http://localhost:3001`;
 
@@ -29,7 +29,7 @@ const API = {
   posts: (data?: GetPosts): Promise<Post[]> => {
     return request({ method: 'GET', url: REQUEST_URL.POSTS, params: data && { _page: data.page } });
   },
-  post: (data: GetPost): Promise<PostsResponse> => {
+  post: (data: GetPost): Promise<Post> => {
     return request({ method: 'GET', url: `${REQUEST_URL.POSTS}/${data.id}` });
   },
   addPost: (data: AddPost) => {

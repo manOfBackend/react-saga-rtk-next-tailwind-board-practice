@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FixedBottomButton, Text } from '@src/components';
 import Header from '@src/components/Header';
 import Stack from '@src/components/Stack';
-import { RootState } from '@src/configureStore';
+import { RootState } from '@src/features';
 import { postsActions } from '@src/features/posts/postsSlice';
 import Router from 'next/router';
 import { css } from 'styled-components';

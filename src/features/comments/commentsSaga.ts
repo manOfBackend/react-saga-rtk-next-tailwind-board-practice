@@ -7,6 +7,8 @@ import { commentsActions } from './commentsSlice';
 
 function* getCommentsSaga({ payload }: { payload: GetComment }) {
   try {
+    console.log('키타!');
+
     const response: AxiosResponse = yield call(API.comments, payload);
     yield put({
       type: commentsActions.getCommentsSuccess,
