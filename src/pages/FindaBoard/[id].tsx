@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { FixedBottomButton, Pagination, Table, Text } from '@src/components';
 import Stack from '@src/components/Stack';
-import useStores from '@src/mobx-stores/useStores';
-import { observer } from 'mobx-react';
+import { RootState } from '@src/features';
+import { detailActions } from '@src/features/detail/detailSlice';
+import { postsActions } from '@src/features/posts/postsSlice';
+import API from '@src/services/requests';
+import { Post } from '@src/services/types/response';
+import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
+import Router from 'next/router';
 import { css } from 'styled-components';
+const FindaBoard = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(postsActions.getPosts({ page }));
+  // }, [page, dispatch]);
 
-import { useInternalRouter } from '../Routing';
-
-const FindaBoard = () => {
-  const router = useInternalRouter();
-  const [page, setPage] = useState(1);
-
-  const { postStore, detailStore } = useStores();
-
-  const { posts } = postStore;
-  useEffect(() => {
-    postStore.getPost({ page });
-  }, [page]);
+  // const { posts } = useSelector((state: RootState) => state.posts);
 
   return (
     <div className="finda-board">
       <section className="finda-board-wrapper">
-        <div className="m-5 bg-yellow-500 text-blue-500 font-boldv">Tailwind 테스트</div>
         <Stack
           css={css`
             margin-top: 20px;
@@ -52,9 +51,9 @@ const FindaBoard = () => {
                 <tr
                   key={post.id}
                   onClick={() => {
-                    // dispatch(detailActions.getDetail({ id: post.id }));
-                    detailStore.getDetail({ id: post.id });
-                    router.push(`/detail`);
+                    dispatch(detailActions.getDetail({ id: post.id }));
+                    Router.push('/Detail');
+                    // router.push(`/detail`);
                   }}
                 >
                   <td>
@@ -77,13 +76,29 @@ const FindaBoard = () => {
             </tbody>
           </Table>
           <div className="finda-board-pagination-wrapper">
-            <Pagination pageSize={10} totalLength={50} currentPage={page} onDispatch={setPage} />
+            <Pagination pageSize={10} totalLength={50} />
           </div>
         </Stack>
       </section>
-      <FixedBottomButton onClick={() => router.push('/write')}>글쓰기</FixedBottomButton>
+      <FixedBottomButton onClick={() => console.log('aa')}>글쓰기</FixedBottomButton>
     </div>
   );
 };
 
-export default observer(FindaBoard);
+export default FindaBoard;
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [{ params: { id: '1' } }, { params: { id: '2' } }],
+    fallback: true,
+  };
+};
+
+export const getStaticProps: GetStaticProps<{ posts: Post[] }> = async ({ params }: any) => {
+  const posts = await API.posts({ page: params.id });
+
+  return {
+    props: { posts },
+    revalidate: 1,
+  };
+};
