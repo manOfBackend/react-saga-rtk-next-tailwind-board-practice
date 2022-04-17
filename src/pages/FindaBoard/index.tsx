@@ -21,6 +21,7 @@ const FindaBoard = () => {
   return (
     <div className="finda-board">
       <section className="finda-board-wrapper">
+        <div className="m-5 bg-yellow-500 text-blue-500 font-boldv">Tailwind 테스트</div>
         <Stack
           css={css`
             margin-top: 20px;

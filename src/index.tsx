@@ -6,6 +6,7 @@ import { Provider as MobxProvider } from 'mobx-react';
 import App from './App';
 import mobxStore from './mobx-stores';
 
+import './tailwind.css';
 ReactDOM.render(
   <MobxProvider stores={mobxStore}>
     <Router>

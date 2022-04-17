@@ -22,6 +22,11 @@ module.exports = {
           loader: 'babel-loader',
         },
       },
+      {
+        test: /.css?$/,
+        exclude: [],
+        use: ['style-loader', 'css-loader', 'postcss-loader'],
+      },
     ],
   },
   resolve: {
