@@ -1,30 +1,27 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { FixedBottomButton, Text } from '@src/components';
 import Header from '@src/components/Header';
 import Stack from '@src/components/Stack';
-import useStores from '@src/mobx-stores/useStores';
-import { reaction } from 'mobx';
-import { observer } from 'mobx-react';
+import { RootState } from '@src/configureStore';
+import { postsActions } from '@src/features/posts/postsSlice';
+import Router from 'next/router';
 import { css } from 'styled-components';
-
-import { useInternalRouter } from '../Routing';
-
 const Write = () => {
-  const router = useInternalRouter();
+  const dispatch = useDispatch();
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
-  const { postStore } = useStores();
-  reaction(
-    () => postStore.addPostSuccess,
-    (success) => {
-      if (success) {
-        router.push('/board');
-      }
+  const { addPostSuccess } = useSelector((state: RootState) => state.posts);
+
+  useEffect(() => {
+    if (addPostSuccess) {
+      Router.push('/FindaBoard/1');
     }
-  );
+  }, [addPostSuccess]);
+
   return (
     <>
-      <Header onBackClick={() => router.goBack()} />
+      <Header onBackClick={() => Router.back()} />
       <Stack>
         <Text fontSize="medium">제목</Text>
         <input
@@ -46,8 +43,7 @@ const Write = () => {
       </Stack>
       <FixedBottomButton
         onClick={() => {
-          postStore.addPost({ title: title, content: content, writer: 'aaa' });
-          // dispatch(postsActions.addPost({ title: title, content: content, writer: 'aaa' }));
+          dispatch(postsActions.addPost({ title: title, content: content, writer: 'aaa' }));
         }}
       >
         <Text fontSize="xx-small">글쓰기</Text>
@@ -56,4 +52,4 @@ const Write = () => {
   );
 };
 
-export default observer(Write);
+export default Write;

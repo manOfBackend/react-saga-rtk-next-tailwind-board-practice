@@ -1,25 +1,20 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { FixedBottomButton, Text } from '@src/components';
 import Header from '@src/components/Header';
 import List from '@src/components/List';
 import Stack from '@src/components/Stack';
-import useStores from '@src/mobx-stores/useStores';
+import { RootState } from '@src/features';
 import { observer } from 'mobx-react';
-
-import { useInternalRouter } from '../Routing';
+import Router from 'next/router';
 
 const Detail = () => {
-  const router = useInternalRouter();
-  // const { detail } = useSelector((state: RootState) => state.detail);
-  // const { comments } = useSelector((state: RootState) => state.comments);
+  const { detail } = useSelector((state: RootState) => state.detail);
+  const { comments } = useSelector((state: RootState) => state.comments);
 
-  const { detailStore, commentStore } = useStores();
-
-  const { detail } = detailStore;
-  const { comments } = commentStore;
   return (
     <>
-      <Header onBackClick={() => router.push('/board')} />
+      <Header onBackClick={() => Router.push('/FindaBoard/1')} />
       <Stack>
         <Text fontSize="medium">제목</Text>
         <Text fontSize="xx-small">{detail?.title}</Text>
@@ -38,11 +33,11 @@ const Detail = () => {
           ))}
         </List>
       </Stack>
-      <FixedBottomButton onClick={() => router.push('/comment-write')}>
+      <FixedBottomButton onClick={() => Router.push('/CommentWrite')}>
         <Text fontSize="xx-small">댓글 쓰기</Text>
       </FixedBottomButton>
     </>
   );
 };
 
-export default observer(Detail);
+export default Detail;
