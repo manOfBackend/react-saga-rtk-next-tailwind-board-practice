@@ -4,7 +4,7 @@ import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { AddComment, AddPost, GetComment, GetPost, GetPosts } from './types/request';
 import { Post, PostsResponse } from './types/response';
 
-axios.defaults.baseURL = `${process.env.API_ENDPOINT}`;
+axios.defaults.baseURL = `http://localhost:3001`;
 
 const isAxiosError = (error: any): error is AxiosError => {
   return error.isAxiosError;
@@ -26,8 +26,8 @@ const API = {
   login: <T>(data: T) => {
     return request({ method: 'POST', url: REQUEST_URL.LOGIN, data });
   },
-  posts: (data: GetPosts): Promise<Post[]> => {
-    return request({ method: 'GET', url: REQUEST_URL.POSTS, params: { _page: data.page } });
+  posts: (data?: GetPosts): Promise<Post[]> => {
+    return request({ method: 'GET', url: REQUEST_URL.POSTS, params: data && { _page: data.page } });
   },
   post: (data: GetPost): Promise<PostsResponse> => {
     return request({ method: 'GET', url: `${REQUEST_URL.POSTS}/${data.id}` });
