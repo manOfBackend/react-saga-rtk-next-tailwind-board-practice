@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "next dev",
     "start": "postcss src/tailwind.css -o public/build/output.css && webpack serve --config ./config/webpack/webpack.dev.js",
     "build": "postcss src/tailwind.css -o public/build/output.css && webpack --config ./config/webpack/webpack.dev.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -42,6 +43,9 @@
     "localforage": "^1.10.0",
     "mobx": "^6.5.0",
     "mobx-react": "^7.3.0",
+    "next": "^12.1.5",
+    "next-redux-saga": "^4.1.2",
+    "next-redux-wrapper": "^7.0.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.2.2",
@@ -55,6 +59,7 @@
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-react": "^7.12.10",
     "@babel/preset-typescript": "^7.16.0",
+    "@types/next-redux-saga": "^3.0.2",
     "@types/redux-logger": "^3.0.9",
     "@types/styled-components": "^5.1.24",
     "@typescript-eslint/eslint-plugin": "^5.1.0",
