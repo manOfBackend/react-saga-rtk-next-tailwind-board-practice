@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "next dev",
+    "dev": "NODE_OPTIONS='--inspect' next dev",
     "start": "postcss src/tailwind.css -o public/build/output.css && webpack serve --config ./config/webpack/webpack.dev.js",
     "build": "postcss src/tailwind.css -o public/build/output.css && webpack --config ./config/webpack/webpack.dev.js",
     "test": "echo \"Error: no test specified\" && exit 1"
