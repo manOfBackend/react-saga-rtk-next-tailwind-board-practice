@@ -90,9 +90,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
   (Store) =>
-    async ({ params }: GetStaticPropsContext<any>) => {
-      const { page } = params;
-      Store.dispatch(postsActions.getPosts({ page: page as number }));
+    async ({ params }: GetStaticPropsContext) => {
+      const page = params?.page as string;
+      Store.dispatch(postsActions.getPosts({ page: Number(page) }));
       Store.dispatch(END);
       await (Store as SagaStore)?.sagaTask?.toPromise();
       return {
