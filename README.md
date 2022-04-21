@@ -1,6 +1,6 @@
 ## skills used
-* main: react + redux + saga + rtk + next.js + postcss + tailwind css
-* onboarding-2: react + mobx + postcss + tailwind css
+* main: react + redux + saga + rtk + next.js + styled-components + postcss + tailwind css
+* onboarding-2: react + mobx + styled-components
 
 ### common
 * webpack, json-server, msw
